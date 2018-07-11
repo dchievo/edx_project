@@ -1,0 +1,10 @@
+		{% extends "layout.html" %}
+		{% block heading %}
+			Third Page
+		{% endblock %}
+
+		{% block body %}
+			<a href="{{ url_for('index') }}">Index</a>
+			<h1>HELLO  {{ name }}</h1>
+		{% endblock %}
+

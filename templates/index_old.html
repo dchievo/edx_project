@@ -1,0 +1,13 @@
+		{% extends "layout.html" %}
+
+		{% block heading %}
+			First Page
+		{% endblock %}
+
+		{% block body %}
+			<p>
+				well howdy partner how you doing?
+			</p>
+
+			<a href="{{ url_for('more') }}">Move</a>
+		{% endblock %}
