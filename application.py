@@ -8,9 +8,12 @@ import datetime
 
 app = Flask(__name__)
 
+dburl = os.getenv("DATABASE_URL")
 # Check for environment variable
 if not os.getenv("DATABASE_URL"):
     raise RuntimeError("DATABASE_URL is not set")
+else: 
+    print(dburl)
 
 # Configure session to use filesystem
 app.config["SESSION_PERMANENT"] = False
@@ -51,6 +54,9 @@ def main():
 @app.route("/index", methods=["GET","POST"])
 def index():
     users = db.execute("SELECT username1, password FROM credentials WHERE id = 1").fetchall()
+    if users is None:
+        users = "DChi"
+
     if session.get("notes") is None:
         session["notes"] = []
 
