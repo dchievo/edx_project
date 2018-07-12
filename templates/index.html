@@ -6,6 +6,10 @@ NOTES
 
 {% block body %}
 
+{% for user in users %}
+{{ users }}
+{% endfor %}
+
 <ul>
 {% for note in notes %}
 <li> {{ note }} </li>

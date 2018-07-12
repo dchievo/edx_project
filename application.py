@@ -21,7 +21,12 @@ Session(app)
 engine = create_engine(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
 
-
+def main():
+    # flights = db.execute("SELECT username, password FROM credentials WHERE username = 'dchievo'").fetchall()
+    flights="dchi"
+    # for flight in flights:
+    #     print(f"{flight.username} has a password of {flight.password}.")
+    return flights
 #@app.route("/index")
 #def index():
 #    headline = "hello there"
@@ -45,14 +50,14 @@ db = scoped_session(sessionmaker(bind=engine))
 
 @app.route("/index", methods=["GET","POST"])
 def index():
-
+    users = db.execute("SELECT username1, password FROM credentials WHERE id = 1").fetchall()
     if session.get("notes") is None:
         session["notes"] = []
 
     note = request.form.get("note")
     session["notes"].append(note)
-    return render_template("index.html", notes = session["notes"])
+    return render_template("index.html", notes = session["notes"], users=users)
 
-#@app.route("/")
-#def main():
-#    return f"hello world"
+@app.route("/")
+def main():
+   return f"hello world"
