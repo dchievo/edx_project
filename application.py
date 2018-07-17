@@ -9,31 +9,32 @@ import datetime
 app = Flask(__name__)
 
 dburl = os.getenv("DATABASE_URL")
-# Check for environment variable
+# # Check for environment variable
 if not os.getenv("DATABASE_URL"):
     raise RuntimeError("DATABASE_URL is not set")
 else: 
     print(dburl)
 
-# Configure session to use filesystem
+# # Configure session to use filesystem
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
-# Set up database
-engine = create_engine(os.getenv("DATABASE_URL"))
+# # Set up database
+engine = create_engine(dburl)
 db = scoped_session(sessionmaker(bind=engine))
 
-def main():
-    # flights = db.execute("SELECT username, password FROM credentials WHERE username = 'dchievo'").fetchall()
-    flights="dchi"
-    # for flight in flights:
-    #     print(f"{flight.username} has a password of {flight.password}.")
-    return flights
-#@app.route("/index")
-#def index():
-#    headline = "hello there"
-#    return render_template("index.html", headline=headline)
+def queryUsers():
+    users = db.execute("SELECT username, password FROM credentials WHERE username = 'dchievo'").fetchall()
+    # flights="dchi"
+    for user in users:
+        print(f"{user.username} has a password of {user.password}.")
+    return users
+@app.route("/index")
+def index():
+    users = queryUsers()
+    headline = "hello there"
+    return render_template("index.html", users=users)
 
 #@app.route("/more")
 #def more():
@@ -51,19 +52,19 @@ def main():
 #    names = ["alice", "david", "charlie"]
 #    return render_template("index.html", names=names)
 
-@app.route("/index", methods=["GET","POST"])
-def index():
-    users = db.execute("SELECT username1, password FROM credentials WHERE id = 1").fetchall()
-    if users is None:
-        users = "DChi"
+# @app.route("/index", methods=["GET","POST"])
+# def index():
+#     #users = db.execute("SELECT username1, password FROM credentials WHERE id = 1").fetchall()
+#     if users is None:
+#         users = "DChi"
 
-    if session.get("notes") is None:
-        session["notes"] = []
+#     if session.get("notes") is None:
+#         session["notes"] = []
 
-    note = request.form.get("note")
-    session["notes"].append(note)
-    return render_template("index.html", notes = session["notes"], users=users)
+#     note = request.form.get("note")
+#     session["notes"].append(note)
+#     return render_template("index.html", notes = session["notes"], users=users)
 
-@app.route("/")
-def main():
-   return f"hello world"
+# @app.route("/")
+# def main():
+#    return f"hello world"
