@@ -24,17 +24,16 @@ Session(app)
 engine = create_engine(dburl)
 db = scoped_session(sessionmaker(bind=engine))
 
-def queryUsers():
-    users = db.execute("SELECT username, password FROM credentials WHERE username = 'dchievo'").fetchall()
-    # flights="dchi"
-    for user in users:
-        print(f"{user.username} has a password of {user.password}.")
-    return users
 @app.route("/index")
 def index():
-    users = queryUsers()
-    headline = "hello there"
-    return render_template("index.html", users=users)
+    users = db.execute("SELECT * from books").fetchall()
+    if users is None:
+        print("In here")
+        return f"No Query"
+    else:
+        print(users)
+        return render_template("index.html", users=users)            
+    #return render_template("index.html", users=users)
 
 #@app.route("/more")
 #def more():

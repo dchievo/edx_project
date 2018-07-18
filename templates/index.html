@@ -7,7 +7,10 @@ NOTES
 {% block body %}
 
 {% for user in users %}
-{{ users }}
+ISBN: {{ user.isbn }}<br>
+TITLE: {{ user.title }}<br>
+AUTHOR: {{ user.author }}<br>
+YEAR: {{ user.year }}<br><br>
 {% endfor %}
 
 <ul>
