@@ -20,7 +20,8 @@ YEAR: {{ user.year }}<br><br>
 </ul>
 
 <form action="{{ url_for('index')}}" method="POST">
-    name: <input type="text" name="note" placeholder="Enter Your Name">
+    username: <input type="text" name="username" placeholder="Enter Your Username"><br>
+    password: <input type="password" name="password" pattern=".{6,}" placeholder="Enter Your Password"><br>
     <button>Submit</button>
 </form>
 {% endblock %}
