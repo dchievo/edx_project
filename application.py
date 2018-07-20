@@ -35,16 +35,24 @@ def index():
         return render_template("index.html", users=users)            
     #return render_template("index.html", users=users)
 
-#@app.route("/more")
-#def more():
-#    headline = "bye there"
-#    return render_template("more.html", headline=headline)
+@app.route("/registration", methods=["GET","POST"])
+def registration():
+    username = ""
+    password = ""
+    if request.form.get("username") is None:
+        username = "asdf"
+    else:
+        username = request.form.get("username")
+    if request.form.get("password") is None:
+        password = "feaisdf"
+    else:
+        request.form.get("password")
 
-#@app.route("/layout")
-#def layout():
-#    now = datetime.datetime.now()
-#    new_year = now.month == 1 and now.day == 1
-#    return render_template("layout.html", newyear = new_year)
+    return render_template("registration.html", username=username, password=password)
+
+@app.route("/submitted", methods=["GET","POST"])
+def submitted():
+    return render_template("submitted.html", newyear = new_year)
 
 #@app.route("/example")
 #def example():

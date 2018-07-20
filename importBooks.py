@@ -10,7 +10,7 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
 
 def main():
-    f = open("books_sample.csv")
+    f = open("books.csv")
     reader = csv.reader(f)
     for isbn, title, author, year in reader:
         book = Books(isbn=isbn, title=title, author=author, year=year)
