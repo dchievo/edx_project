@@ -1,13 +1,13 @@
 {% extends "layout.html" %}
 
 {% block heading %}
-    Registration
+    Sign up now!
 {% endblock %}
 
 {% block body %}
     {{ username }}
     {{ password }}    
-
+    <p>By having an account, you can do a number of awesome things now.  It just takes seconds to sign up.</p>
     <form action="{{ url_for('registration')}}">
            email: <input type="email" name="email"><br>
         username: <input type="text" name="username"><br>        

@@ -24,41 +24,52 @@ Session(app)
 engine = create_engine(dburl)
 db = scoped_session(sessionmaker(bind=engine))
 
-@app.route("/index")
+@app.route("/")
 def index():
-    users = db.execute("SELECT * from books").fetchall()
-    if users is None:
-        print("In here")
-        return f"No Query"
-    else:
-        print(users)
-        return render_template("index.html", users=users)            
+    return "this is the parent body of the site"
+
+@app.route("/signup")
+def signup():
+    users = "users"
+    # users = db.execute("SELECT * from books").fetchall()
+    # if users is None:
+    #     print("In here")
+    #     return f"No Query"
+    # else:
+    #     print(users)
+    return render_template("index.html", users=users)            
     #return render_template("index.html", users=users)
 
-@app.route("/registration", methods=["GET","POST"])
+@app.route("/registration", methods=["POST"])
 def registration():
-    username = ""
-    password = ""
+    if request.form.get("email") is None:
+        email = "No email listed"
+    else:
+        email = request.form.get("email")
+
     if request.form.get("username") is None:
-        username = "asdf"
+        username = "No username specified"
     else:
         username = request.form.get("username")
-    if request.form.get("password") is None:
-        password = "feaisdf"
-    else:
-        request.form.get("password")
 
-    return render_template("registration.html", username=username, password=password)
+    if request.form.get("password") is None:
+        password = "No password specified"
+    else:
+        password = request.form.get("password")
+
+    return render_template("success.html", email=email, username=username, password=password)
 
 @app.route("/submitted", methods=["GET","POST"])
 def submitted():
     return render_template("submitted.html", newyear = new_year)
 
-#@app.route("/example")
-#def example():
-#    names = ["alice", "david", "charlie"]
-#    return render_template("index.html", names=names)
+@app.route("/login")
+def login():
+   return render_template("login.html")
 
+@app.route("/logout")
+def logout():
+   return render_template("logout.html")
 # @app.route("/index", methods=["GET","POST"])
 # def index():
 #     #users = db.execute("SELECT username1, password FROM credentials WHERE id = 1").fetchall()
@@ -72,6 +83,23 @@ def submitted():
 #     session["notes"].append(note)
 #     return render_template("index.html", notes = session["notes"], users=users)
 
-# @app.route("/")
-# def main():
-#    return f"hello world"
+@app.route("/searchBooks")
+def searchBooks():
+   return render_template("searchbooks.html")
+
+@app.route("/searchResults", methods=["GET","POST"])
+def searchResults():
+    bookTitle = request.form.get("title")
+    if bookTitle is None:
+        bookTitle = "None submitted"
+
+    # users = db.execute("SELECT * FROM credentials WHERE id = {{ bookTitle }}").fetchall()
+    # if users is None:
+    #     users = "DChi"
+
+    # if session.get("notes") is None:
+    #     session["notes"] = []
+
+    # note = request.form.get("note")
+    # session["notes"].append(note)
+    return render_template("results.html", bookTitle=bookTitle)   
