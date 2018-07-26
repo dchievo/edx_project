@@ -72,7 +72,7 @@ def login():
 def logout():
    return render_template("logout.html")
 # @app.route("/index", methods=["GET","POST"])
-# def index():
+# def index(): asdfasf
 #     #users = db.execute("SELECT username1, password FROM credentials WHERE id = 1").fetchall()
 #     if users is None:
 #         users = "DChi"
