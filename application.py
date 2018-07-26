@@ -61,7 +61,8 @@ def registration():
 
 @app.route("/submitted", methods=["GET","POST"])
 def submitted():
-    return render_template("submitted.html", newyear = new_year)
+    newyear = '2018'
+    return render_template("submitted.html", newyear = newyear)
 
 @app.route("/login")
 def login():
